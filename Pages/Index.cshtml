@@ -1,10 +1,19 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>Marine Geospatial Viewer</h1>
+
+<form method="post">
+    <label for="latitude">Latitude:</label>
+    <input type="text" id="latitude" name="Latitude" />
+    
+    <label for="longitude">Longitude:</label>
+    <input type="text" id="longitude" name="Longitude" />
+    
+    <button type="submit">Add/View Data</button>
+</form>
+
+<!-- Data Display Section -->
+<div>
+    @Model.Message
 </div>
