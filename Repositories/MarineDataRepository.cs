@@ -28,9 +28,14 @@ public class MarineDataRepository
         await _marineDatas.InsertOneAsync(marineData);
     }
 
-    public async Task Update(string id, MarineData marineData)
+    public async Task<UpdateResult> Update(string id, MarineData marineData)
     {
-        await _marineDatas.ReplaceOneAsync(data => data.Id == id, marineData);
+        var updateDefinition = Builders<MarineData>.Update
+            .Set(md => md.Latitude, marineData.Latitude)
+            .Set(md => md.Longitude, marineData.Longitude)
+            .Set(md => md.DateLogged, marineData.DateLogged);
+
+        return await _marineDatas.UpdateOneAsync(data => data.Id == id, updateDefinition);
     }
 
     public async Task Delete(string id)

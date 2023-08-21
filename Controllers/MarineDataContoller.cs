@@ -40,7 +40,11 @@ public class MarineDataController : ControllerBase
         var existingMarineDatum = await _repository.Get(id);
         if (existingMarineDatum == null) return NotFound();
 
-        await _repository.Update(id, marineData);
+        var updateResult = await _repository.Update(id, marineData);
+        
+        // Log or print the update result
+        Console.WriteLine($"Matched: {updateResult.MatchedCount}, Modified: {updateResult.ModifiedCount}");
+
         return NoContent();
     }
 
