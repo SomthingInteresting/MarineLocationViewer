@@ -11,6 +11,7 @@ var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 
 // Add MongoDB services
 builder.Services.AddScoped<MarineDataRepository>();
@@ -33,6 +34,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.MapControllers();
 
 app.UseAuthorization();
 
