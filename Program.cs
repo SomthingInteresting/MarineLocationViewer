@@ -1,7 +1,23 @@
+using System;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using MongoDB.Driver; // Necessary for MongoDB
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Load MongoDB configuration from appsettings.json
+var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Add MongoDB services
+builder.Services.AddScoped<MarineDataRepository>();
+builder.Services.AddSingleton<IMongoClient>(new MongoClient(mongoDbSettings.GetSection("ConnectionString").Value));
+builder.Services.AddScoped<IMongoDatabase>(sp => 
+    sp.GetRequiredService<IMongoClient>().GetDatabase(mongoDbSettings.GetSection("DatabaseName").Value)
+);
 
 var app = builder.Build();
 
