@@ -2,7 +2,8 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MongoDB.Driver; // Necessary for MongoDB
+using MongoDB.Driver;
+using MarineLocationViewer.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
