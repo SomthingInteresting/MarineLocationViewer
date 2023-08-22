@@ -3,6 +3,10 @@
 
 <h1>Marine Geospatial Viewer</h1>
 
+<label for="placeName">Place Name:</label>
+<input type="text" id="placeName" />
+<button type="button" onclick="searchPlace()">Search</button>
+
 <form method="post">
     <label for="latitude">Latitude:</label>
     <input type="text" id="latitude" name="Latitude" />
@@ -10,7 +14,7 @@
     <label for="longitude">Longitude:</label>
     <input type="text" id="longitude" name="Longitude" />
     
-    <button type="submit">Add/View Data</button>
+    <button type="submit">Save Coordinate</button>
 </form>
 
 <!-- Data Display Section -->
