@@ -31,6 +31,26 @@
 <!-- Leaflet JavaScript -->
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
+<table border="1" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 8px; text-align: left;">Latitude</th>
+            <th style="padding: 8px; text-align: left;">Longitude</th>
+            <th style="padding: 8px; text-align: left;">Date Logged</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var coord in Model.Coordinates)
+        {
+            <tr>
+                <td style="padding: 8px; text-align: left;">@coord.Latitude</td>
+                <td style="padding: 8px; text-align: left;">@coord.Longitude</td>
+                <td style="padding: 8px; text-align: left;">@coord.DateLogged</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <script>
     var map = L.map('map').setView([51.505, -0.09], 13); // Default to London, zoom level 13
 
