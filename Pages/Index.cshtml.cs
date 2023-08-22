@@ -37,7 +37,6 @@ namespace MarineLocationViewer.Pages
             };
             
             await _repository.Create(marineData);
-            Message = "Coordinates saved successfully!";
 
             // After saving, fetch all coordinates again to update the map
             Coordinates = await _repository.GetAll();
