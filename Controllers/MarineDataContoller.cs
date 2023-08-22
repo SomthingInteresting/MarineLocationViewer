@@ -49,7 +49,7 @@ public class MarineDataController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("Delete/{id}")]
     public async Task<IActionResult> Delete(string id)
     {
         var marineDatumToDelete = await _repository.Get(id);
