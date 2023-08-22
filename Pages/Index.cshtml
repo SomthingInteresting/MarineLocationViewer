@@ -47,4 +47,31 @@
             console.error("Invalid coordinate:", coord);
         }
     });
+
+    function searchPlace() {
+        var placeName = document.getElementById('placeName').value;
+        
+        // Use the Nominatim API for geocoding
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${placeName}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var lat = data[0].lat;
+                    var lon = data[0].lon;
+
+                    // Set the coordinates in the input fields
+                    document.getElementById('latitude').value = lat;
+                    document.getElementById('longitude').value = lon;
+
+                    // Add a marker on the map
+                    L.marker([lat, lon]).addTo(map);
+                    map.setView([lat, lon], 13);
+                } else {
+                    alert('Place not found!');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching coordinates:', error);
+            });
+    }
 </script>
