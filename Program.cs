@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 using MarineLocationViewer.Repositories;
+using MarineLocationViewer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,10 @@ builder.Services.AddSingleton<IMongoClient>(new MongoClient(mongoDbSettings.GetS
 builder.Services.AddScoped<IMongoDatabase>(sp => 
     sp.GetRequiredService<IMongoClient>().GetDatabase(mongoDbSettings.GetSection("DatabaseName").Value)
 );
+
+// Add Admiralty API service
+builder.Services.AddScoped<AdmiraltyService>(sp => 
+    new AdmiraltyService(builder.Configuration["AdmiraltyAPI:SubscriptionKey"]));
 
 var app = builder.Build();
 

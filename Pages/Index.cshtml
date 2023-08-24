@@ -28,6 +28,9 @@
 <!-- Map Container -->
 <div id="map" style="width: 100%; height: 400px;"></div>
 
+<!-- Button to Toggle Ship Routes -->
+<button onclick="toggleShipRoutes()">Toggle Ship Routes</button>
+
 <!-- Leaflet JavaScript -->
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
@@ -100,21 +103,34 @@
     }
 
     function deleteRecord(id) {
-    if (confirm('Are you sure you want to delete this record?')) {
-        fetch(`MarineData/Delete/${id}`, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) {
-                location.reload(); // Reload the page to reflect the changes
-            } else {
-                alert('Failed to delete the record.');
-            }
-        })
-        .catch(error => {
-            console.error('Error deleting record:', error);
-        });
+        if (confirm('Are you sure you want to delete this record?')) {
+            fetch(`MarineData/Delete/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // Reload the page to reflect the changes
+                } else {
+                    alert('Failed to delete the record.');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting record:', error);
+            });
+        }
     }
-}
 
+    var shipRoutesLayer = L.tileLayer.wms('https://admiraltyapi.azure-api.net/uk_ship_routeing/v1/wms', {
+        layers: 'Your_Layer_Name_Here', // Specify the appropriate layer name
+        format: 'image/png',
+        transparent: true
+    });
+
+    function toggleShipRoutes() {
+        if (map.hasLayer(shipRoutesLayer)) {
+            map.removeLayer(shipRoutesLayer);
+        } else {
+            shipRoutesLayer.addTo(map);
+        }
+    }
 </script>

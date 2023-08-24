@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MarineLocationViewer.Repositories;
+using MarineLocationViewer.Services;
+
+private readonly AdmiraltyService _admiraltyService;
 
 [ApiController]
 [Route("[controller]")]
@@ -11,6 +14,7 @@ public class MarineDataController : ControllerBase
     public MarineDataController(MarineDataRepository repository)
     {
         _repository = repository;
+        _admiraltyService = admiraltyService;
     }
 
     [HttpGet]
@@ -59,4 +63,10 @@ public class MarineDataController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet("ShipRoutes")]
+    public async Task<IActionResult> GetShipRoutes()
+    {
+        var shipRoutes = await _admiraltyService.GetShipRouteingData();
+        return Ok(shipRoutes);
+    }
 }
